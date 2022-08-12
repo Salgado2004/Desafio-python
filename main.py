@@ -6,7 +6,7 @@ app.secret_key = 'aihfisdjfewsue'
 
 @app.errorhandler(404)
 def erro404(error):
-    return render_template('GerenciadorErro.html'), 404
+    return render_template('404Error.html'), 404
   
 @app.route('/')
 def entry_page() -> 'html':
