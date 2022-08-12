@@ -8,7 +8,7 @@ app.secret_key = 'aihfisdjfewsue'
 def erro404(error):
     return render_template('404Error.html'), 404
   
-@app.route('/', methods=['POST'])
+@app.route('/', methods=['POST', 'GET'])
 def entry_page() -> 'html':
     return render_template('restaurantHome.html')
   
