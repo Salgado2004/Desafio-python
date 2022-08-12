@@ -1,3 +1,5 @@
+import minhasFunctions as mfc
+import datetime
 from flask import Flask, render_template, request, session, redirect, url_for
 
 app = Flask(__name__)
@@ -10,7 +12,8 @@ def erro404(error):
   
 @app.route('/', methods=['POST', 'GET'])
 def entry_page() -> 'html':
-    return render_template('restaurantHome.html')
+    menu = mfc.getmenu()
+    return render_template('restaurantHome.html', the_menu = menu)
 
 @app.route('/contate-nos', methods=['POST'])
 def contactMsg() -> 'html':
