@@ -172,7 +172,7 @@ body {
 }
 
 .about-text {
-  flex: 1 1 400px;
+  flex: 1 1 500px;
   padding: 30px;
   margin: auto;
   transform: translate(-150%);
