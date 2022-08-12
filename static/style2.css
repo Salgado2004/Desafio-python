@@ -330,7 +330,7 @@ body {
 /* ........./ Testimonial /.......... */
 
 #testimonials {
-  padding: 5rem 0;
+  padding: 0;
   background: rgba(243, 243, 243);
 }
 
@@ -343,9 +343,11 @@ body {
 
 .testimonial-container {
   display: flex;
-  justify-content: space-between;
+  flex-direction: row;
+  width: 100%;
   font-size: 1.4rem;
   padding: 1rem;
+  overflow-x: scroll;
 }
 
 .testimonial-box .checked {
@@ -359,11 +361,14 @@ body {
 .testimonial-box .testimonial-text {
   margin: 1rem 0;
   color: #444;
+  width: 200px;
 }
 
 .testimonial-box {
   text-align: center;
   padding: 1rem;
+  margin: 0 5rem 5rem 0.5rem;
+  font-size: 1rem;
 }
 
 .customer-photo img {
