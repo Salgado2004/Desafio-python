@@ -8,9 +8,9 @@ app.secret_key = 'aihfisdjfewsue'
 def erro404(error):
     return render_template('404Error.html'), 404
   
-@app.route('/')
+@app.route('/', methods=['POST'])
 def entry_page() -> 'html':
-    return render_template('index.html')
+    return render_template('restaurantHome.html')
   
 if __name__ == '__main__':
     app.run(debug=True)
