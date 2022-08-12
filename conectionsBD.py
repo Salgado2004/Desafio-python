@@ -25,3 +25,23 @@ def saveMsg(**arg):
     cursor.close()
     conn.close()
     return "enviado ao banco de dados"
+
+def getMenu():
+    conn = mysql.connector.connect(**dbconfig)
+    cursor = conn.cursor()
+    _SQL = """select * from comidas;"""
+    cursor.execute(_SQL)
+    res = cursor.fetchall()
+    menu = []
+    for row in res:
+        nome = row[1] 
+        preco = f'{row[2]: .2f}' 
+        preco = preco.replace(".", ",")
+        pathImg = row[3] 
+        descricao = row[4] 
+        idReceita = row[5]
+        food = {'nome': nome, 'preco': preco, 'pathImg': pathImg, 'descricao': descricao, 'idReceita': idReceita}
+        menu.append(food)
+    cursor.close()
+    conn.close()
+    return menu
