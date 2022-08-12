@@ -12,3 +12,10 @@ def getmenu():
     menu = bd.getMenu()
     print(menu)
     return menu
+
+def getTestimonials():
+    depoimentos = bd.getRef()
+    for pessoa in depoimentos:
+        if pessoa['pathImg'] == "":
+            pessoa['pathImg'] = "../static/img/noImg.png"
+    return depoimentos
