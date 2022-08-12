@@ -13,7 +13,8 @@ def erro404(error):
 @app.route('/', methods=['POST', 'GET'])
 def entry_page() -> 'html':
     menu = mfc.getmenu()
-    return render_template('restaurantHome.html', the_menu = menu)
+    depoimentos = mfc.getTestimonials()
+    return render_template('restaurantHome.html', the_menu = menu, the_testimonials = depoimentos)
 
 @app.route('/contate-nos', methods=['POST'])
 def contactMsg() -> 'html':
