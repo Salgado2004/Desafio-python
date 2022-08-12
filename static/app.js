@@ -1,3 +1,5 @@
+// Essa primeira função eu peguei junto com o template por uma questão de estilo, as demais foram programadas por mim
+// Caso tenha interesse, a fonte do template é https://www.codewithrandom.com/
 $(document).ready(function () {
     // Add smooth scrolling to all links
     $("a").on("click", function (event) {
