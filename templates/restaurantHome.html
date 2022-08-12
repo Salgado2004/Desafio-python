@@ -55,12 +55,13 @@
             </div>
 
             <div class="form-container">
-                <form>
+                <form action="/contate-nos" method="post" autocomplete="off"> 
                     <h2>Contate-nos</h2>
-                    <input type="text" placeholder="Seu nome" />
-                    <input type="email" placeholder="E-Mail" />
-                    <textarea cols="30" rows="6" placeholder="Digite sua mensagem aqui"></textarea>
+                    <input type="text" name="nome" placeholder="Seu nome" />
+                    <input type="email" name="email" placeholder="E-Mail" />
+                    <textarea name="msg" cols="30" rows="6" placeholder="Digite sua mensagem aqui"></textarea>
                     <button type="submit" class="btn btn-primary">Enviar</button>
+                    <p>*Ao enviar sua mensagem, a página será atualizada</p>
                 </form>
             </div>
         </div>
