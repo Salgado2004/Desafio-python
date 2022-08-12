@@ -7,3 +7,8 @@ def getMsg(**arg):
     data= arg['fdata']
     result = bd.saveMsg(fnome = nome, femail = email, fmsg = msg, fdata= data)
     return result
+
+def getmenu():
+    menu = bd.getMenu()
+    print(menu)
+    return menu
