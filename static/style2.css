@@ -352,6 +352,10 @@ body {
   color: #ff9529;
 }
 
+.testimonial-box .unchecked {
+  color: #444;
+}
+
 .testimonial-box .testimonial-text {
   margin: 1rem 0;
   color: #444;
