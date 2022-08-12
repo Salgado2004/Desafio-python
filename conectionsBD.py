@@ -45,3 +45,21 @@ def getMenu():
     cursor.close()
     conn.close()
     return menu
+
+def getRef():
+    conn = mysql.connector.connect(**dbconfig)
+    cursor = conn.cursor()
+    _SQL = """select * from depoimentos;"""
+    cursor.execute(_SQL)
+    res = cursor.fetchall()
+    depoimentos = []
+    for row in res:
+        nome = row[1] 
+        rate = row[2] 
+        text = row[3]
+        pathImg = row[4] 
+        pessoa = {'nome': nome, 'rate': rate, 'pathImg': pathImg, 'depoimento': text}
+        depoimentos.append(pessoa)
+    cursor.close()
+    conn.close()
+    return depoimentos
