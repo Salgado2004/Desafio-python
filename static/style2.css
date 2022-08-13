@@ -326,6 +326,14 @@ body {
   color: #117964;
   font-weight: 700;
 }
+.food-description a {
+  color: #117964;
+  font-weight: 500;
+}
+.food-description a:hover {
+  font-weight: 600;
+  text-decoration: none;
+}
 
 /* ........./ Testimonial /.......... */
 
