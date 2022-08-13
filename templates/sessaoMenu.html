@@ -14,7 +14,7 @@
                         {{ food['descricao'] }}
                     </p>
                     <p class="food-price">Custo: R&#x24;{{ food['preco'] }}</p>
-                    <a href="#">Ver receita</a>
+                    <a href="/receitas?id={{ food['idReceita'] }}">Ver receita</a>
                 </div>
             </div>
         {% endfor %}
