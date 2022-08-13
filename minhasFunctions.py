@@ -10,7 +10,6 @@ def getMsg(**arg):
 
 def getmenu():
     menu = bd.getMenu()
-    print(menu)
     return menu
 
 def getTestimonials():
@@ -19,3 +18,15 @@ def getTestimonials():
         if pessoa['pathImg'] == "":
             pessoa['pathImg'] = "../static/img/noImg.png"
     return depoimentos
+
+def receita(fid):
+    idReceita = fid
+    receita = bd.getReceita(idReceita)
+    ingredientes = []
+    for x in receita['ingredientes']:
+        ingrediente = x.split(",")
+        dicionario = {'nome': ingrediente[0], 'qtd': ingrediente[1]}
+        ingredientes.append(dicionario)
+        
+    receita.update({"ingredientes": ingredientes})
+    return receita
