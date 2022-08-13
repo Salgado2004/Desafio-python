@@ -87,3 +87,33 @@ def getReceita(fid):
     cursor.close()
     conn.close()
     return receita
+
+def qtdReceitas():
+    conn = mysql.connector.connect(**dbconfig)
+    cursor = conn.cursor()
+    _SQL = 'select * from receitas;'
+    cursor.execute(_SQL)
+    res = cursor.fetchall()
+    qtdReceitas = len(res)
+    cursor.close()
+    conn.close()
+    return qtdReceitas
+
+def getDestaques(indices):
+    ids = indices
+    conn = mysql.connector.connect(**dbconfig)
+    cursor = conn.cursor()
+    destaques = []
+    for i in ids:
+        _SQL = 'select nome, pathImg, idReceita from comidas where id = "'+str(i)+'";'
+        cursor.execute(_SQL)
+        res = cursor.fetchall()
+        for row in res:
+            nome = row[0]
+            pathImg = row[1]
+            idReceita = row[2]
+            destaque = {'nome': nome, 'pathImg': pathImg, 'idReceita': idReceita}
+            destaques.append(destaque)
+    cursor.close()
+    conn.close()
+    return destaques
