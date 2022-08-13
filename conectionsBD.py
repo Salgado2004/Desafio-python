@@ -10,7 +10,9 @@ def log():
     res = cursor.fetchall()
     for row in res:
         return row
-  
+    cursor.close()
+    conn.close()
+
 def saveMsg(**arg):
     nome = arg['fnome']
     email = arg['femail']
@@ -63,3 +65,25 @@ def getRef():
     cursor.close()
     conn.close()
     return depoimentos
+
+def getReceita(fid):
+    idReceita = str(fid)
+    conn = mysql.connector.connect(**dbconfig)
+    cursor = conn.cursor()
+    _SQL = 'select * from receitas where id = "'+idReceita+'";'
+    cursor.execute(_SQL)
+    res = cursor.fetchall()
+    for row in res:
+        nome = row[1] 
+        idComida = str(row[2]) 
+        ingredientes = row[3].split(";")
+        modoPreparo = row[4] 
+    _SQL = 'select pathImg from comidas where id = "'+idComida+'";'
+    cursor.execute(_SQL)
+    res = cursor.fetchall()
+    for row in res:
+        pathImg = row[0]
+    receita = {'nome': nome, 'ingredientes': ingredientes, 'pathImg': pathImg, 'modoPreparo': modoPreparo}
+    cursor.close()
+    conn.close()
+    return receita
