@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<nav class="navbar">
+    <div class="navbar-container container">
+        <input type="checkbox" name="" id="">
+        <div class="hamburger-lines">
+            <span class="line line1"></span>
+            <span class="line line2"></span>
+            <span class="line line3"></span>
+        </div>
+        <ul class="menu-items">
+            <li><a href="/#food-menu">Voltar</a></li>
+            <li><a href="#food-menu">Ingredientes</a></li>
+            <li><a href="#modoPreparo">Modo de preparo</a></li>
+        </ul>
+        <h1 class="logo">LS</h1>
+    </div>
+</nav>
+<br><br>
+<section id="food-menu">
+    <h2 class="food-menu-heading">{{ the_recipee['nome'] }}</h2>
+    <div id="about">
+        <div class="about-wrapper container">
+            <div class="about-text">
+                <p class="small">Ingredientes</p>
+            </div>
+        </div>
+        <div class="food-menu-container container">
+            {% for ingredient in the_recipee['ingredientes'] %}
+                <div class="food-menu-item">
+                    <div class="food-img">
+                        <img src="../static/img/ingrediente.png" alt="" />
+                    </div>
+                    <div class="food-description">
+                        <h2 class="food-titile">{{ ingredient['nome'] }}</h2>
+                        <p class="food-price">Quantidade:<br> {{ ingredient['qtd'] }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+</section>
+<section id="about">
+    <div id="modoPreparo"></div>
+    <div class="about-wrapper container">
+        <div class="about-text">
+            <p class="small">Modo de preparo</p><br>
+            <p>
+                {{ the_recipee['modoPreparo'] }}
+            </p>
+        </div>
+        <div class="about-img">
+            <img src="{{ the_recipee['pathImg'] }}" alt="food" />
+        </div>
+    </div>
+</section>
+{% endblock %}
