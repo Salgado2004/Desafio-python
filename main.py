@@ -7,7 +7,7 @@ app = Flask(__name__)
 app.secret_key = 'aihfisdjfewsue'
 
 @app.errorhandler(404)
-def erro404(error):
+def page_not_found(error):
     return render_template('404Error.html'), 404
   
 @app.route('/', methods=['POST', 'GET'])
@@ -25,6 +25,14 @@ def contactMsg() -> 'html':
     data = str(date.year)+'-'+str(date.month)+'-'+str(date.day)
     mfc.getMsg(fnome = nome, femail = email, fmsg = msg, fdata= data)
     return redirect(url_for('entry_page'))
+
+@app.route('/receitas', methods=['GET'])
+def getReceita() -> 'html':
+    idReceita = request.args.get('id')
+    if idReceita == None:
+        return redirect(url_for('entry_page'))
+    receita = mfc.receita(idReceita)
+    return render_template('receitas.html', the_recipee= receita)
   
 if __name__ == '__main__':
     app.run(debug=True)
