@@ -14,7 +14,11 @@ def page_not_found(error):
 def entry_page() -> 'html':
     menu = mfc.getmenu()
     depoimentos = mfc.getTestimonials()
-    return render_template('restaurantHome.html', the_menu = menu, the_testimonials = depoimentos)
+    indices = mfc.destaques()
+    return render_template('restaurantHome.html', 
+                            the_menu = menu, 
+                            the_testimonials = depoimentos, 
+                            destaques= indices)
 
 @app.route('/contate-nos', methods=['POST'])
 def contactMsg() -> 'html':
