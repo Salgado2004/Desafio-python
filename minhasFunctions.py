@@ -1,4 +1,5 @@
 import conectionsBD as bd
+import random
 
 def getMsg(**arg):
     nome = arg['fnome']
@@ -27,6 +28,14 @@ def receita(fid):
         ingrediente = x.split(",")
         dicionario = {'nome': ingrediente[0], 'qtd': ingrediente[1]}
         ingredientes.append(dicionario)
-        
+
     receita.update({"ingredientes": ingredientes})
     return receita
+
+def destaques():
+    qtd = bd.qtdReceitas()
+    destaques = set(())
+    while len(destaques) < 3:
+        destaques.add(random.randint(1, qtd))
+    indices = bd.getDestaques(destaques)
+    return indices
