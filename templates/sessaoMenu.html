@@ -1,6 +1,6 @@
 {% block menu %}
 <section id="food-menu">
-    <h2 class="food-menu-heading">Menu</h2>
+    <h2 class="food-menu-heading">Receitas</h2>
     <div class="food-menu-container container">
 
         {% for food in the_menu %}
@@ -13,7 +13,7 @@
                     <p>
                         {{ food['descricao'] }}
                     </p>
-                    <p class="food-price">Preço: R&#x24;{{ food['preco'] }}</p>
+                    <p class="food-price">Custo: R&#x24;{{ food['preco'] }}</p>
                     <a href="#">Ver receita</a>
                 </div>
             </div>
