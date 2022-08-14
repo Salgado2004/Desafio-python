@@ -2,17 +2,6 @@ import mysql.connector
 
 dbconfig = {'host': '127.0.0.1', 'user': 'root', 'password': 'password', 'database': 'databaseName'}
 
-def log():
-    conn = mysql.connector.connect(**dbconfig)
-    cursor = conn.cursor()
-    _SQL = """select * from database;"""
-    cursor.execute(_SQL)
-    res = cursor.fetchall()
-    for row in res:
-        return row
-    cursor.close()
-    conn.close()
-
 def saveMsg(**arg):
     nome = arg['fnome']
     email = arg['femail']
@@ -36,11 +25,11 @@ def getMenu():
     res = cursor.fetchall()
     menu = []
     for row in res:
-        nome = row[1] 
+        nome = row[1].replace("'", " ") 
         preco = f'{row[2]: .2f}' 
         preco = preco.replace(".", ",")
-        pathImg = row[3] 
-        descricao = row[4] 
+        pathImg = row[3].replace("'", " ") 
+        descricao = row[4].replace("'", " ") 
         idReceita = row[5]
         food = {'nome': nome, 'preco': preco, 'pathImg': pathImg, 'descricao': descricao, 'idReceita': idReceita}
         menu.append(food)
@@ -74,7 +63,7 @@ def getReceita(fid):
     cursor.execute(_SQL)
     res = cursor.fetchall()
     for row in res:
-        nome = row[1] 
+        nome = row[1].replace("'", " ") 
         idComida = str(row[2]) 
         ingredientes = row[3].split(";")
         modoPreparo = row[4] 
@@ -82,7 +71,7 @@ def getReceita(fid):
     cursor.execute(_SQL)
     res = cursor.fetchall()
     for row in res:
-        pathImg = row[0]
+        pathImg = row[0].replace("'", " ")
         descricao = row[1]
     receita = {'nome': nome, 'ingredientes': ingredientes, 'pathImg': pathImg, 'descricao': descricao, 'modoPreparo': modoPreparo}
     cursor.close()
@@ -110,8 +99,8 @@ def getDestaques(indices):
         cursor.execute(_SQL)
         res = cursor.fetchall()
         for row in res:
-            nome = row[0]
-            pathImg = row[1]
+            nome = row[0].replace("'", " ")
+            pathImg = row[1].replace("'", " ")
             idReceita = row[2]
             destaque = {'nome': nome, 'pathImg': pathImg, 'idReceita': idReceita}
             destaques.append(destaque)
@@ -119,16 +108,44 @@ def getDestaques(indices):
     conn.close()
     return destaques
 
-'''
-    SET autocommit = 0;
-    START TRANSACTION;
-        INSERT INTO comidas(nome, preco, pathImg, descricao)
-        VALUES("", "", "", "");
-        SELECT LAST_INSERT_ID() INTO @idComida;
-        INSERT INTO receitas(nome, idComida, ingredientes, modoPreparo)
-        VALUES("", @idComida, "", "");
-        SELECT LAST_INSERT_ID() INTO @idReceita;
-        UPDATE comidas SET idReceita = @idReceita WHERE id = @idComida;
-    COMMIT;
-    SET autocommit = 1;
-'''
+def saveReceita(**args):
+    nome = args['nome']
+    custo = float(args['custo'])
+    modoPreparo = args['modoPreparo']
+    descricao = args['descricao']
+    foto = args['foto']
+    ingrediente = args['ingredientes']
+    conn = mysql.connector.connect(**dbconfig)
+    cursor = conn.cursor()
+    commit = (nome, custo, foto, descricao)
+    _SQL = """SET autocommit = 0;"""
+    cursor.execute(_SQL)
+    conn.commit()
+    _SQL = """START TRANSACTION;"""
+    cursor.execute(_SQL)
+    conn.commit()
+    _SQL = """INSERT INTO comidas(nome, preco, pathImg, descricao)
+                VALUES("%s", "%s", "%s", ""%s);
+                """
+    cursor.execute(_SQL, commit)
+    conn.commit()
+    _SQL = """SELECT LAST_INSERT_ID() INTO @idComida;"""
+    cursor.execute(_SQL)
+    conn.commit()
+    commit = (nome, ingrediente, modoPreparo)
+    _SQL = """INSERT INTO receitas(nome, idComida, ingredientes, modoPreparo)
+                VALUES("%s", @idComida, "%s", "%s");"""
+    cursor.execute(_SQL, commit)
+    conn.commit()
+    _SQL = """SELECT LAST_INSERT_ID() INTO @idReceita;"""
+    cursor.execute(_SQL)
+    conn.commit()
+    _SQL = """UPDATE comidas SET idReceita = @idReceita WHERE id = @idComida;"""
+    cursor.execute(_SQL)
+    conn.commit()
+    _SQL = """SET autocommit = 1;"""
+    cursor.execute(_SQL)
+    conn.commit()
+    cursor.close()
+    conn.close()
+    return "enviado ao banco de dados"
