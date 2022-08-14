@@ -1,10 +1,8 @@
 import minhasFunctions as mfc
 import datetime
-from flask import Flask, render_template, request, session, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
-# Set the secret key to some random bytes. Keep this really secret!
-app.secret_key = 'aihfisdjfewsue'
 
 @app.errorhandler(404)
 def page_not_found(error):
@@ -41,5 +39,28 @@ def getReceita() -> 'html':
     else:
         return render_template('receitas.html', the_recipee= receita)
   
+@app.route('/adicionar_receita', methods=['GET', 'POST'])
+def addReceita() -> 'html':
+        return render_template('addReceita.html')
+
+@app.route('/salvar_receita', methods=['POST'])
+def salvarReceita() -> 'html':
+        nome = request.form['nome']
+        custo = request.form['custo']
+        modoPreparo = request.form['modoPreparo']
+        descricao = request.form['descricao']
+        foto = request.form['foto']
+        ingredientes = []
+        i = 0
+        while True:
+            try:
+                dicto = {"nome": request.form['ingt.'+str(i)],"qtd": request.form['qtd.'+str(i)]}
+                ingredientes.append(dicto)
+                i+= 1
+            except KeyError:
+                break
+        mfc.salvarReceita(nome= nome, custo= custo, modoPreparo= modoPreparo, descricao= descricao, foto= foto, ingredientes= ingredientes)
+        return redirect(url_for('entry_page'))
+
 if __name__ == '__main__':
     app.run(debug=True)
