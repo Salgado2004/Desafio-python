@@ -28,7 +28,10 @@ def receita(fid):
         ingredientes = []
         for x in receita['ingredientes']:
             ingrediente = x.split(",")
-            dicionario = {'nome': ingrediente[0], 'qtd': ingrediente[1]}
+            try:
+                dicionario = {'nome': ingrediente[0], 'qtd': ingrediente[1]}
+            except IndexError:
+                break
             ingredientes.append(dicionario)
 
         receita.update({"ingredientes": ingredientes})
