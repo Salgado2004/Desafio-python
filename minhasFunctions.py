@@ -46,3 +46,17 @@ def destaques():
         destaques.add(random.randint(1, qtd))
     indices = bd.getDestaques(destaques)
     return indices
+
+def salvarReceita(**receita):
+    nome = receita['nome']
+    custo = receita['custo'].replace(",", ".")
+    modoPreparo = receita['modoPreparo']
+    descricao = receita['descricao']
+    path = "../static/img/"+ receita['foto']
+    if path == '../static/img/.png':
+        path = "../static/img/noImg.png"
+    ingrediente = ""
+    for i in receita['ingredientes']:
+            ingrediente+= i['nome']+","+i['qtd']+";"
+    bd.saveReceita(nome= nome, custo= custo, modoPreparo= modoPreparo, descricao= descricao, foto= path, ingredientes= ingrediente)
+    return "finalizado"
