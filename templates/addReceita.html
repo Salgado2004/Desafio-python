@@ -1,6 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<script>
+    var contador = 5;
+    function NovaDiv() {
+        var area = document.getElementById("ingredientes").innerHTML;
+        var novaArea = area + `
+                            <tr>
+                                <td><input type="text" name="ingt.`+contador+`" placeholder="Nome"></td>
+                                <td><input type="text" name="qtd.`+contador+`" placeholder="Quantidade"></td>
+                            </tr>`;
+        contador = contador + 1;
+        document.getElementById("ingredientes").innerHTML = novaArea;
+    }
+</script>
 <nav class="navbar">
     <div class="navbar-container container">
         <input type="checkbox" name="" id="">
@@ -15,30 +28,52 @@
         <h1 class="logo">LS</h1>
     </div>
 </nav>
-<br><br>
+<br><br><br>
 <section id="food-menu">
     <h2 class="food-menu-heading">Nova receita</h2>
     <div id="about">
-        <div class="about-wrapper container">
-            <div class="about-text">
-                <p class="small">Nome:</p>
+        <form action='/salvar_receita' method="post">
+            <div class="about-wrapper container">
+                <div class="about-text">
+                    <p class="small">Nome:</p><br>
+                    <input type="text" name="nome" placeholder="Nome">
+                </div>
+                <div class="about-text">
+                    <p class="small">Descrição:</p><br>
+                    <textarea name="descricao" cols="50" rows="6" placeholder="Breve descrição da receita"></textarea>
+                </div>
+                <div class="about-text">
+                    <p class="small">Custo:</p><br>
+                    <input type="text" name="custo" placeholder="Custo">
+                </div>
+                <div class="about-text" style="overflow-y: scroll; height: 300px;">
+                    <p class="small">Ingredientes:</p><br>
+                    <table id="ingredientes">
+                        <tr>
+                            <th>Nome:</th>
+                            <th>Quantidade:</th>
+                        </tr>
+                        {% for i in range (5) %}
+                        <tr>
+                            <td><input type="text" name="ingt.{{i}}" placeholder="Nome"></td>
+                            <td><input type="text" name="qtd.{{i}}" placeholder="Quantidade"></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    <a class="btn btn-primary" onclick="NovaDiv()" style="margin: 5px;">Mais+</a>
+                </div>
+                <div class="about-text">
+                    <p class="small">Modo de preparo:</p><br>
+                    <textarea name="modoPreparo" cols="50" rows="6" placeholder="Modo de preparo"></textarea>
+                </div>
+                <div class="about-text">
+                    <p class="small">Foto (opcional):</p><br>
+                    <input type="file" name="foto">
+                </div>
             </div>
-            <div class="about-text">
-                <p class="small">Descrição:</p><br>
-            </div>
-            <div class="about-text">
-                <p class="small">Custo:</p><br>
-            </div>
-            <div class="about-text">
-                <p class="small">Ingredientes:</p><br>
-            </div>
-            <div class="about-text">
-                <p class="small">Modo de preparo:</p><br>
-            </div>
-            <div class="about-text">
-                <p class="small">Foto (opcional):</p><br>
-            </div>
-        </div>
+            <button type="submit" class="btn btn-primary" style="margin: 10px; border: none; padding: 10px;">Salvar</button>
+            <p>**Você será redirecionado para a página principal</p>
+        </form>
     </div>   
 </section>
 {% endblock %}
