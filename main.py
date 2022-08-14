@@ -9,6 +9,10 @@ app.secret_key = 'aihfisdjfewsue'
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('404Error.html'), 404
+
+@app.errorhandler(500)
+def page_not_found(error):
+    return render_template('404Error.html'), 500
   
 @app.route('/', methods=['POST', 'GET'])
 def entry_page() -> 'html':
@@ -36,7 +40,10 @@ def getReceita() -> 'html':
     if idReceita == None:
         return redirect(url_for('entry_page'))
     receita = mfc.receita(idReceita)
-    return render_template('receitas.html', the_recipee= receita)
+    if receita == None:
+        return redirect(url_for('entry_page'))
+    else:
+        return render_template('receitas.html', the_recipee= receita)
   
 if __name__ == '__main__':
     app.run(debug=True)
