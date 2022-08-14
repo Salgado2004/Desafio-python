@@ -9,10 +9,6 @@ app.secret_key = 'aihfisdjfewsue'
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('404Error.html'), 404
-
-@app.errorhandler(500)
-def page_not_found(error):
-    return render_template('404Error.html'), 500
   
 @app.route('/', methods=['POST', 'GET'])
 def entry_page() -> 'html':
