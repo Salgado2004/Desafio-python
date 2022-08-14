@@ -78,12 +78,13 @@ def getReceita(fid):
         idComida = str(row[2]) 
         ingredientes = row[3].split(";")
         modoPreparo = row[4] 
-    _SQL = 'select pathImg from comidas where id = "'+idComida+'";'
+    _SQL = 'select pathImg, descricao from comidas where id = "'+idComida+'";'
     cursor.execute(_SQL)
     res = cursor.fetchall()
     for row in res:
         pathImg = row[0]
-    receita = {'nome': nome, 'ingredientes': ingredientes, 'pathImg': pathImg, 'modoPreparo': modoPreparo}
+        descricao = row[1]
+    receita = {'nome': nome, 'ingredientes': ingredientes, 'pathImg': pathImg, 'descricao': descricao, 'modoPreparo': modoPreparo}
     cursor.close()
     conn.close()
     return receita
@@ -117,3 +118,17 @@ def getDestaques(indices):
     cursor.close()
     conn.close()
     return destaques
+
+'''
+    SET autocommit = 0;
+    START TRANSACTION;
+        INSERT INTO comidas(nome, preco, pathImg, descricao)
+        VALUES("", "", "", "");
+        SELECT LAST_INSERT_ID() INTO @idComida;
+        INSERT INTO receitas(nome, idComida, ingredientes, modoPreparo)
+        VALUES("", @idComida, "", "");
+        SELECT LAST_INSERT_ID() INTO @idReceita;
+        UPDATE comidas SET idReceita = @idReceita WHERE id = @idComida;
+    COMMIT;
+    SET autocommit = 1;
+'''
