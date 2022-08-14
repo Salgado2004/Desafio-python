@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<nav class="navbar">
+    <div class="navbar-container container">
+        <input type="checkbox" name="" id="">
+        <div class="hamburger-lines">
+            <span class="line line1"></span>
+            <span class="line line2"></span>
+            <span class="line line3"></span>
+        </div>
+        <ul class="menu-items">
+            <li><a href="/#food-menu">Voltar</a></li>
+        </ul>
+        <h1 class="logo">LS</h1>
+    </div>
+</nav>
+<br><br>
+<section id="food-menu">
+    <h2 class="food-menu-heading">Nova receita</h2>
+    <div id="about">
+        <div class="about-wrapper container">
+            <div class="about-text">
+                <p class="small">Nome:</p>
+            </div>
+            <div class="about-text">
+                <p class="small">Descrição:</p><br>
+            </div>
+            <div class="about-text">
+                <p class="small">Custo:</p><br>
+            </div>
+            <div class="about-text">
+                <p class="small">Ingredientes:</p><br>
+            </div>
+            <div class="about-text">
+                <p class="small">Modo de preparo:</p><br>
+            </div>
+            <div class="about-text">
+                <p class="small">Foto (opcional):</p><br>
+            </div>
+        </div>
+    </div>   
+</section>
+{% endblock %}
