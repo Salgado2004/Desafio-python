@@ -21,16 +21,20 @@ def getTestimonials():
     return depoimentos
 
 def receita(fid):
-    idReceita = fid
-    receita = bd.getReceita(idReceita)
-    ingredientes = []
-    for x in receita['ingredientes']:
-        ingrediente = x.split(",")
-        dicionario = {'nome': ingrediente[0], 'qtd': ingrediente[1]}
-        ingredientes.append(dicionario)
+    idReceita = int(fid)
+    qtd = int(bd.qtdReceitas())
+    if idReceita <= qtd:
+        receita = bd.getReceita(idReceita)
+        ingredientes = []
+        for x in receita['ingredientes']:
+            ingrediente = x.split(",")
+            dicionario = {'nome': ingrediente[0], 'qtd': ingrediente[1]}
+            ingredientes.append(dicionario)
 
-    receita.update({"ingredientes": ingredientes})
-    return receita
+        receita.update({"ingredientes": ingredientes})
+        return receita
+    else:
+        return None
 
 def destaques():
     qtd = bd.qtdReceitas()
